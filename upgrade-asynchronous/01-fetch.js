@@ -27,21 +27,34 @@ button$$.addEventListener('click', () => buscador());
 // EJ: El nombre Pepe tiene un 22 porciento de ser de ET y un 6 porciento de ser 
 // de MZ.
 
+// 2.4 En base al ejercicio anterior, crea un botón con el texto 'X' para cada uno 
+// de los p que hayas insertado y que si el usuario hace click en este botón 
+// eliminemos el parrafo asociado.
+
 button$$.addEventListener('click', () => buscador2());
+
+const deleteThis = (delete1, delete2) => {
+  delete1.remove();
+  delete2.remove();
+}
+
+const print = (person) => {
+  const p$$ = document.createElement('p');
+  const buttonX$$ = document.createElement('button');
+
+  p$$.textContent = `El nombre ${person.name} tiene un ${person.country[0].probability * 100} porciento de ser de ${person.country[0].country_id}`;
+  buttonX$$.textContent = 'X';
+
+  document.body.appendChild(p$$);
+  document.body.appendChild(buttonX$$);
+
+  buttonX$$.addEventListener('click', () => deleteThis(p$$, buttonX$$));
+  
+} 
+
 
 const buscador2 = () => {
   fetch(baseUrl + input$$.value)
     .then((data) => data.json())
-    .then((person) => personNacionality(person));
+    .then((person) => print(person));
 }
-
-const personNacionality = (person) => {
-  p$$ = document.createElement('p');
-  
-}
-
-
-
-// 2.4 En base al ejercicio anterior, crea un botón con el texto 'X' para cada uno 
-// de los p que hayas insertado y que si el usuario hace click en este botón 
-// eliminemos el parrafo asociado.
